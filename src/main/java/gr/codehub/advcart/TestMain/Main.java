@@ -8,6 +8,7 @@ import gr.codehub.advcart.repository.CartRepository;
 import gr.codehub.advcart.repository.CustomerRepository;
 import gr.codehub.advcart.repository.ProductCartRepository;
 import gr.codehub.advcart.repository.ProductRepository;
+import gr.codehub.advcart.service.BusinessService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,50 +20,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //objects from GUI
-        Customer customer = new Customer();
-        customer.setName("Stamos");
-
-        Product product = new Product();
-        product.setName("chips");
-        product.setPrice(1.20);
-
-
-        //
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("Persistence");
+       EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("Persistence");
        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        CustomerRepository customerRepository = new CustomerRepository(entityManager);
-        ProductRepository productRepository = new ProductRepository(entityManager);
-        CartRepository cartRepository = new CartRepository(entityManager);
-        ProductCartRepository productCartRepository = new ProductCartRepository(entityManager);
+        BusinessService businessService = new BusinessService(entityManager);
 
-        customerRepository.save(customer);
-        productRepository.save(product);
+        businessService.setUpData();
+        long cartId =  businessService.cart(1, new long[]{1L,2L,3L});
 
-
-        Optional<Product> anotherProduct = productRepository.findById(product.getId());
-
-
-        Cart cart = new Cart();
-        cart.setDate(LocalDate.now());
-        cart.setCustomer(customer);
-
-        cartRepository.save(cart);
-
-
-        ProductCart productCart = new ProductCart();
-        productCart.setCart(cart);
-        productCart.setProduct(product);
-        productCart.setQuantity(2);
-        productCart.setDiscount(0.1);
-
-        productCartRepository.save(productCart);
-
-
-
+        System.out.println("cartId ="+ cartId);
+        entityManager.close();
         entityManagerFactory.close();
-
-        System.out.println(customer.getId());
-    }
+     }
 }
