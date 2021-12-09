@@ -14,15 +14,10 @@ public class Person {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
     private String name;
     private LocalDate regDate;
 
-
-
     private int age;
 
-
     private String Email;
-
 }

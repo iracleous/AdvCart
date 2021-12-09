@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -90,4 +91,20 @@ public class BusinessService {
         return cart.getId();
     }
 
+    public List<Product> getProducts()
+    {
+        return productRepository.findAll();
+    }
+
+
+    public Product updateProduct(Product product)
+    {
+        return productRepository.save(product).get();
+    }
+
+
+    public Product findProduct(long productId)
+    {
+        return productRepository.findById(productId).get();
+    }
 }

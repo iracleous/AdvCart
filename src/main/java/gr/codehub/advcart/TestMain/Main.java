@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class Main {
@@ -25,10 +26,30 @@ public class Main {
 
         BusinessService businessService = new BusinessService(entityManager);
 
-        businessService.setUpData();
-        long cartId =  businessService.cart(1, new long[]{1L,2L,20L, 7L});
+     //   List<Product> productList = businessService.getProducts();
 
-        System.out.println("cartId ="+ cartId);
+    //    for(Product product:productList)
+     //       System.out.println(product.getName());
+
+       // businessService.setUpData();
+    //    long cartId =  businessService.cart(1, new long[]{1L,2L,20L, 7L});
+
+  //      System.out.println("cartId ="+ cartId);
+
+
+    Product product = businessService.findProduct(1L);
+
+    //error if used to update
+   //     Product product = new Product();
+   //     product.setId(1L);
+
+        product.setName("Pepsi");
+
+        businessService.updateProduct(product);
+        System.out.println(product.getName()+ " "+ product.getId());
+
+
+
         entityManager.close();
         entityManagerFactory.close();
      }
