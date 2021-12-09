@@ -8,12 +8,16 @@ import gr.codehub.advcart.repository.CartRepository;
 import gr.codehub.advcart.repository.CustomerRepository;
 import gr.codehub.advcart.repository.ProductCartRepository;
 import gr.codehub.advcart.repository.ProductRepository;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.Optional;
 
+@Slf4j
 public class BusinessService {
 
     private EntityManager entityManager;
@@ -56,8 +60,10 @@ public class BusinessService {
 
     public long cart(long customerId, long[] productIds) {
 
-        Customer customer = customerRepository.findById(customerId).get();
-
+        Optional<Customer> oCustomer = customerRepository.findById(customerId);
+        if (!oCustomer.isPresent())
+                    return 0L;
+        Customer customer =oCustomer.get();
 
         Cart cart = new Cart();
         cart.setDate(LocalDate.now());
@@ -66,8 +72,12 @@ public class BusinessService {
         cartRepository.save(cart);
 
         for (Long productId : productIds) {
-            Product product = productRepository.findById(productId).get();
-
+            Optional<Product> oProduct = productRepository.findById(productId);
+            if (!oProduct.isPresent()) {
+                log.debug("Product not found");
+                continue;
+            }
+            Product product =oProduct.get();
             ProductCart productCart = new ProductCart();
             productCart.setCart(cart);
             productCart.setProduct(product);

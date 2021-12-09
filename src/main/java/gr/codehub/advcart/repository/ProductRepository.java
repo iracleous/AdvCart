@@ -25,7 +25,8 @@ public class ProductRepository implements  Repository<Product, Long>{
 
     @Override
     public Optional<Product> findById(Long id) {
-        return Optional.of(entityManager.find(Product.class, id));
+        Product product = entityManager.find(Product.class, id);
+        return  product==null?Optional.empty():Optional.of(product);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class Main {
         BusinessService businessService = new BusinessService(entityManager);
 
         businessService.setUpData();
-        long cartId =  businessService.cart(1, new long[]{1L,2L,3L});
+        long cartId =  businessService.cart(1, new long[]{1L,2L,20L, 7L});
 
         System.out.println("cartId ="+ cartId);
         entityManager.close();

@@ -17,6 +17,12 @@ public class Person {
 
     private String name;
     private LocalDate regDate;
+
+
+
+    private int age;
+
+
     private String Email;
 
 }
