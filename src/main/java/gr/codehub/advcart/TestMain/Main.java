@@ -30,12 +30,12 @@ public class Main {
 
         //
         EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("Persistence");
-   //     EntityManager entityManager = entityManagerFactory.createEntityManager();
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        CustomerRepository customerRepository = new CustomerRepository(entityManagerFactory.createEntityManager());
-        ProductRepository productRepository = new ProductRepository(entityManagerFactory.createEntityManager());
-        CartRepository cartRepository = new CartRepository(entityManagerFactory.createEntityManager());
-        ProductCartRepository productCartRepository = new ProductCartRepository(entityManagerFactory.createEntityManager());
+        CustomerRepository customerRepository = new CustomerRepository(entityManager);
+        ProductRepository productRepository = new ProductRepository(entityManager);
+        CartRepository cartRepository = new CartRepository(entityManager);
+        ProductCartRepository productCartRepository = new ProductCartRepository(entityManager);
 
         customerRepository.save(customer);
         productRepository.save(product);
