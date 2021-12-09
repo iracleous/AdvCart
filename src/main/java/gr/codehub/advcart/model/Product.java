@@ -2,6 +2,7 @@ package gr.codehub.advcart.model;
 
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,15 +12,16 @@ import java.util.List;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     private String name;
     private double price;
 
 
     @OneToMany(mappedBy = "product")
-    private List<Product_Cart> carts;
+    private List<ProductCart> carts;
 
 
 

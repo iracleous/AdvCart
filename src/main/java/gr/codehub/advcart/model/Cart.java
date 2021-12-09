@@ -11,7 +11,7 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -25,7 +25,7 @@ public class Cart {
     private Customer customer;
 
     @OneToMany(mappedBy = "cart")
-    private List<Product_Cart> products;
+    private List<ProductCart> products;
 
 
 }
